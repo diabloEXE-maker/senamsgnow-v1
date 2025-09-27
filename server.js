@@ -6,7 +6,7 @@ const path = require('path');
 require("dotenv").config();
 
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname)));
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -26,7 +26,7 @@ const Note = mongoose.model("Note", notesSchema);
 
 
 app.get("/", function(req,res) {
-    res.sendFile(__dirname + "/public/index.html");
+    res.sendFile(__dirname + "/index.html");
 })
 
 app.post("/", function(req, res) {
@@ -48,7 +48,7 @@ app.post("/", function(req, res) {
 
 
 app.get("/messages", async function(req, res) {
-        res.sendFile(path.join(__dirname, 'public', 'messages.html'));
+        res.sendFile(path.join(__dirname, 'messages.html'));
 
     try {
         const allNotes = await Note.find({});
@@ -73,4 +73,5 @@ app.get("/api/notes", async function(req, res) {
 app.listen(process.env.PORT, function () {
   console.log(`✅ Server running on http://localhost:${process.env.PORT}`);
 });
+
 
